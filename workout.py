@@ -1,22 +1,9 @@
-# Name : workout.py
-
-## workout.py consists of WorkOut class
-## the purpose of WorkOut class is to create WorkOut object that store information such as workout type, age, gender, category, and workout level
-## this object will be used to store information from Main method
-## and use the information to access the URL to gain information of workout informations
-## and return it to main method
-
-#importing necessary packages
 import requests
 from bs4 import BeautifulSoup
 
 #defining WorkOut class
 class WorkOut:
 
-  #init method of WorkOut class
-  # @param age: age from input
-  # @param age: workout type from calorie intake input
-  # @param age: gender from input
   def __init__(self, age, workoutType, gender):
     self.__workoutType = workoutType
     self.__age = age
@@ -24,9 +11,6 @@ class WorkOut:
     self.__category = ""
     self.__level = ""
 
-  #categorizeWorkout method is used to fill in Category and Level variable
-  #there are two category of workout, for adult or for seniors
-  #there are three level, beginner to maintain weight, intermediate to lose weight and advanced to lose weight extremely
   def categorizeWorkOut(self):
     #workout categorized by age, if older than 50 means senior, under 50 means normal
     if self.__age >= 50:
@@ -49,9 +33,6 @@ class WorkOut:
     #workout information is stored in workoutList
     workoutList = []
 
-    #this if statement is entered when the workout is for senior
-    #url used due to the reasoning, people older than 50 years old is recommended to do light exercise like walking
-    #not intense exercise like recommended for younger people
     if self.__category == "senior":
       url = "https://firstquotehealth.com/health-insurance-news/recommended-steps-day"
 

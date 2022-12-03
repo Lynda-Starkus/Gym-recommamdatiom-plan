@@ -20,11 +20,6 @@ class Calorie:
     self.mean_age_and_gender_bmi = 0.0        #Variable to store mean age and gender bmi from reference data.
     self.required_calories = 0                #Variable to store final required calories.
 
-  # API link for putting user input and getting user output on BMI and Calorie Intake Requirements
-  #https://rapidapi.com/malaaddincelik/api/fitness-calculator/
-
-  #2: 
-  #This function gets the BMI from the API link based on user inputs.
   def getBMIFromAPI(self):
       #print(self.input_dictionary)
       url = "https://fitness-calculator.p.rapidapi.com/bmi"
@@ -51,12 +46,6 @@ class Calorie:
 
       return self.bmi
 
-  #3:
-  ##benchmarked BMI from CSV file (one time calculation)
-  # Function to calculate the mean bmi from the referance bmi based on the age and gender of the user.
-  # This method checks if there are entries for the user-entered age and genders, if it exists, then it calculates the mean bmi based on the formula,
-  # BMI  = (Weight/(Height*100)^2) 
-  # If no entries are found for the user-entered age and genders, the mean bmi is calculated for all rows belonging to the range of (age-5,age+5)
   def calculateBenchmarkedBMI(self):
       #Dictionary to convert user input to ref data key for sex/gender.
       gender_dict = {"male": 1, "female": 0}
@@ -82,17 +71,12 @@ class Calorie:
 
       return self.mean_age_and_gender_bmi
 
-  #4:
-  #compare user BMI from API to benchmarked BMI from csv
   def interpretBMI(self):
       bmi = self.input_dictionary['weight']/math.pow(self.input_dictionary['height']/100,2)
       diff_in_bmi = bmi - self.calculateBenchmarkedBMI()
       
       print("Difference in your BMI and Benchmarked BMI: " + str(round(diff_in_bmi, 2)))
       
-      # giving user different suggestions on their goals depending on 
-      #whether the difference in their BMI and benchmarked BMI is
-      # positive, negative or zero
       if(diff_in_bmi > 0):
           print('Based on the above difference, we suggest you take up goals that help you reduce weight to reach your ideal BMI')
       elif(diff_in_bmi <0):
@@ -102,9 +86,6 @@ class Calorie:
           
       return round(diff_in_bmi,2)
 
-  #5:
-  #Getting calorie requirements from the API link
-  #This will be used to make the meal plan and workout plan
   def getCalorieIntakeRequirementsFromAPI(self):
       url = "https://fitness-calculator.p.rapidapi.com/dailycalorie"
 
@@ -124,18 +105,11 @@ class Calorie:
 
       response = requests.request("GET", url, headers=headers, params=querystring)
 
-      #print(response.text)
-      # return 1. weight loss choices
-      # return 2. calorie  requirement daily bmr
-
       responseDict = json.loads(response.text)
       self.calorie_intake_requirements = responseDict["data"]
 
       return self.calorie_intake_requirements
 
-  #6:
-  #give user options on the weight loss options
-  #and eventually use this for output = ideal calories for meal plan and work out plan
   def decisionOnWeightLossOption(self):
       print("Provided is option of goals you might want to achieve:")
       print("1: Maintain Weight")

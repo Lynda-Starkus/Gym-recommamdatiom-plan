@@ -1,27 +1,4 @@
-# Name : main.py
 
-# Purpose:
-## main.py consists of the main method of the CMU HEALTHIER LIFE APPLICATION program
-## this application is created to help people live a healthier life with balanced diet and workout
-## the application will start by calling its own method askInput which will ask input from user
-## and then calling for Calorie object which will calculate the BMI for the input and show the differences between
-## user's current BMI and the average BMI we calculate from our source code before giving recommendation of how much calorie intake user's should get daily
-## after that main method will call FoodRecommendation for weekly food recommendation based on the calorie intake
-## and WorkOut object based on body type and goals
-##
-## Overall requirements:
-## This application includes pdfkit to run,
-## This library is added to satisfy the requirement of additional library not used in class
-## instruction to install the package is provided in user instruction
-##
-## We would also need a source code from here https://www.key2stats.com/data-set/view/1367
-## however, for ease of use, data is already provided in the src folder within the zip file
-## 
-## API and webs are used in this program, such as:
-## 1.) https://fitness-calculator.p.rapidapi.com/bmi to count BMI
-## 2.) https://rapidapi.com/malaaddincelik/api/fitness-calculator/ to get Calorie Intake Recommendation
-## 3.) https://www.prospre.io/meal-plans/ to get meal plan recommendation, and
-## 4.) https://massivejoes.com/free-workout-plan/ for workout plan recommendation
 
 import pandas as pd
 from calorie import Calorie
@@ -30,15 +7,7 @@ from workout import WorkOut
 import pdfkit
 import os
 
-#askInput method is to get Input from User
-#program won't stop until all parameters are correct
-# @param none
-# return Dictionary 
 def askInput():
-  #first input is to ask for age
-  #input has to be in integer
-  #and cannot be negative or bigger than 80
-  
   print("Welcome to CMU healthier life application!")
   print("This application would help you plan your weekly meal and workout plan based on your basic information\n")
   
@@ -59,8 +28,6 @@ def askInput():
       print(">> Wrong input, Age should be in integer. Input again.\n")
       continue
   
-  #second input is to ask for gender
-  #input has to be either female/male
   while True:
     gender = input("Next, Enter your gender (female or male): ")
     if gender.lower() == "female" or gender.lower() == "male":
@@ -69,9 +36,6 @@ def askInput():
       print(">> Wrong input, Gender should be female or male. Input again.\n")
       continue
   
-  #third input is to ask for height
-  #input has to be in number
-  #and cannot be smaller than 130 or bigger than 230 (as part of source API requirement)
   while True:
     try:
       height = float(input("Next, Enter your height (in cm): "))
@@ -83,9 +47,6 @@ def askInput():
       print(">> Wrong input, Height should be in number. Input again.\n")
       continue
   
-  #fourth input is to ask for weight
-  #input has to be in number
-  #and cannot be smaller than 40 or bigger than 160 (as part of source API requirement)
   while True:
     try:
       weight = float(input("Next, Enter your weight (in kg): "))
@@ -98,9 +59,6 @@ def askInput():
       print(">> Wrong input, Weight should be in number. Input again.\n")
       continue
 
-  #fifth input is to ask for activity
-  #input has to be in number
-  #and cannot be out of range that is given
   print("Provided is a list of activity level:")
   print("1: No or very little exercise")
   print("2: Exercise 1-3 times/week")
@@ -118,16 +76,11 @@ def askInput():
       print(">> Wrong input, Activity should be in number. Input again.\n")
       continue
 
-  #all input are gathered into one dictionary
   inputDictionary = {'age': age, 'gender': gender.lower(), 'height': height, 'weight': weight, 'activity':activity}
   
   #dictionary are returned
   return inputDictionary
 
-#printOutput method is to print out the Food and Workout Recommendation
-# @param foodRecDict: food recommendation dictionary
-# @param workoutSchedule: workout recommendation list
-# return nothing 
 def printOutput(foodRecDict, workoutSchedule):
     #as part of output, string html is created for the html format for pdf
     html = "<h1><center>Your Weekly Meal and Workout Plan</center></h1><br><h2>Meal Plan</h2>"
